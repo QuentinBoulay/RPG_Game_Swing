@@ -116,6 +116,8 @@ public class MenuStartPanel extends JPanel {
                 new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         new Insets(50, 0, 30, 0), 0, 0));
+
+
         this.pseudoField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -128,6 +130,20 @@ public class MenuStartPanel extends JPanel {
         });
         this.add(this.pseudoField,
                 new GridBagConstraints(1, 2, 3, 1, 0.0, 0.0,
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(50, 0, 30, 0), 0, 0));
+
+
+        JLabel label = new JLabel("Choisissez une arme :");
+        this.add(label,
+                new GridBagConstraints(0, 3, 3, 1, 0.0, 0.0,
+                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                        new Insets(0, 0, -30, 0), 0, 0));
+
+        String[] items = {"Item 1", "Item 2", "Item 3", "Item 4"};
+        JComboBox combo = new JComboBox(items);
+        this.add(combo,
+                new GridBagConstraints(0, 4, 3, 1, 0.0, 0.0,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         new Insets(50, 0, 30, 0), 0, 0));
     }
