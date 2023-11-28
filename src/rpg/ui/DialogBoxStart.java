@@ -40,6 +40,7 @@ public class DialogBoxStart {
         actionMap.put(enter, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                menuStart.updateGameInputs();
                 d.dispose();
             }
         });

@@ -30,15 +30,18 @@ public class MainGUI {
         new DialogBoxStart(gameInputs);
         System.out.println(gameInputs.getPlayerName());
         System.out.println(gameInputs.getPlayerCast());
+        System.out.println(gameInputs.getPlayerWeapons());
 
         // create game
         Game game = new Game(gameInputs);
         // Create the main panel in which graphical components will be defined
-        GamePanel gamePanel = new GamePanel(game);
+        GamePanel gamePanel = new GamePanel(game, gameInputs.getWeaponStore(), game.getPlayer());
+
 
         window.add(gamePanel);
+
+        gamePanel.getMapPanel().requestFocusInWindow();
         window.pack();
-        //window.validate();
 
     }
 }

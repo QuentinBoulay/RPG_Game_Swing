@@ -2,6 +2,8 @@ package rpg.ui;
 
 import rpg.game.GameInputs;
 import rpg.game.PlayerCast;
+import rpg.game.weapons.Weapon;
+import rpg.game.weapons.WeaponStore;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -22,10 +24,18 @@ public class MenuStartPanel extends JPanel {
     private JRadioButton radioWarrior;
     private JRadioButton radioElf;
 
+    private JComboBox combo;
+
     private JButton okButton;
+
+    private WeaponStore weaponStore;
+
+    private Weapon selectedItem;
+
 
     public MenuStartPanel(GameInputs gameInputs) {
         this.gameInputs = gameInputs;
+        this.weaponStore = new WeaponStore();
         initComponents();
     }
 
@@ -46,6 +56,29 @@ public class MenuStartPanel extends JPanel {
 
     }
 
+    public void updateGameInputs() {
+        setPlayerName(pseudoField.getText());
+        setPlayerCast();
+        setWeaponStore(this.weaponStore);
+        setPlayerWeapon(getSelectedItem());
+    }
+
+    private void setSelectedItem(Weapon weapon) {
+        this.selectedItem = weapon;
+    }
+
+    private Weapon getSelectedItem() {
+        return this.selectedItem;
+    }
+
+    private void setPlayerWeapon(Weapon weapon) {
+        this.gameInputs.setPlayerWeapon(weapon);
+    }
+
+    private void setWeaponStore(WeaponStore weaponStore) {
+        this.gameInputs.setWeaponStore(weaponStore);
+    }
+
     private void initComponents() {
         // define components
         this.title = new JLabel("WELCOME TO MY RPG");
@@ -55,6 +88,15 @@ public class MenuStartPanel extends JPanel {
         this.radioMage = new JRadioButton("MAGE");
         this.radioWarrior = new JRadioButton("WARRIOR");
         this.radioElf = new JRadioButton("ELF");
+
+        // choix de l'arme au début du jeu
+        this.combo = new JComboBox(this.weaponStore.getWeapons().toArray());
+
+        this.combo.addActionListener(e -> {
+            JComboBox cb = (JComboBox) e.getSource();
+            Weapon selectedWeapon = (Weapon) cb.getSelectedItem();
+            setSelectedItem(selectedWeapon);
+        });
 
         // define panel layout
         this.setBorder(new EmptyBorder(50, 50, 50, 50));
@@ -125,6 +167,14 @@ public class MenuStartPanel extends JPanel {
                     JTextField textField = (JTextField) e.getSource();
                     setPlayerName(textField.getText());
                     setPlayerCast();
+
+                    // Récupère l'arme sélectionnée à partir de la JComboBox 'combo'
+                    setPlayerWeapon(getSelectedItem());
+
+                    // Affichage pour vérification
+                    System.out.println("Player name : " + gameInputs.getPlayerName());
+                    System.out.println("Player class : " + gameInputs.getPlayerCast());
+                    System.out.println("Player weapon : " + getSelectedItem());
                 }
             }
         });
@@ -140,11 +190,11 @@ public class MenuStartPanel extends JPanel {
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         new Insets(0, 0, -30, 0), 0, 0));
 
-        String[] items = {"Item 1", "Item 2", "Item 3", "Item 4"};
-        JComboBox combo = new JComboBox(items);
         this.add(combo,
                 new GridBagConstraints(0, 4, 3, 1, 0.0, 0.0,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         new Insets(50, 0, 30, 0), 0, 0));
     }
+
+
 }

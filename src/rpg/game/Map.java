@@ -4,8 +4,8 @@ public class Map {
     static final int[][] MAP_TEMPLATE_DEFAULT = {
             {2, 0, 1, 1},
             {1, 0, 1, 1},
-            {1, 0, 0, 1},
-            {1, 1, 0, 0},
+            {1, 0, 4, 1},
+            {1, 1, 0, 3},
     };
 
     private int[][] map;
