@@ -29,6 +29,8 @@ public class PlayerInfoPanel extends JPanel {
         moneyLabel = new JLabel("Argent: " + player.getMoney() + " pièces d'or");
         weaponsList = new JList<>(new Vector<>(player.getWeapons()));
 
+        weaponsList.setFocusable(false);
+
         this.add(nameLabel);
         this.add(classLabel);
         this.add(moneyLabel);
