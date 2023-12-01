@@ -35,19 +35,15 @@ public class MapPanel extends JPanel {
     void handleKeyPress(int keyCode) {
         switch (keyCode) {
             case KeyEvent.VK_UP:
-                System.out.println("UP");
                 movePlayer(0, -1);
                 break;
             case KeyEvent.VK_DOWN:
-                System.out.println("DOWN");
                 movePlayer(0, 1);
                 break;
             case KeyEvent.VK_LEFT:
-                System.out.println("LEFT");
                 movePlayer(-1, 0);
                 break;
             case KeyEvent.VK_RIGHT:
-                System.out.println("RIGHT");
                 movePlayer(1, 0);
                 break;
         }
@@ -109,16 +105,14 @@ public class MapPanel extends JPanel {
     }
 
     private void checkSpecialTile(int x, int y) {
-        SwingUtilities.invokeLater(() -> {
-            if (this.mapGrid[y][x] == 4) {
-                // Gérer l'interaction avec la case d'achat d'arme
-                handleWeaponShop();
-            } else if (this.mapGrid[y][x] == 3) {
-                // Gérer la victoire
-                JOptionPane.showMessageDialog(this, "Vous avez gagné !", "Victoire", JOptionPane.INFORMATION_MESSAGE);
-                System.exit(0);
-            }
-        });
+        if (this.mapGrid[y][x] == 4) {
+            // Gérer l'interaction avec la case d'achat d'arme
+            handleWeaponShop();
+        } else if (this.mapGrid[y][x] == 3) {
+            // Gérer la victoire
+            JOptionPane.showMessageDialog(this, "Vous avez gagné !", "Victoire", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
     }
 
     private void handleWeaponShop() {

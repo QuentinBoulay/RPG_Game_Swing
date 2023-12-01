@@ -47,12 +47,17 @@ public class MenuStartPanel extends JPanel {
         PlayerCast playerClass = null;
         if (this.radioMage.isSelected()) {
             playerClass = PlayerCast.MAGE;
+            System.out.println("Mage choisi");
         } else if (this.radioElf.isSelected()) {
             playerClass = PlayerCast.ELF;
+            System.out.println("Elf choisi");
         } else if (this.radioWarrior.isSelected()){
             playerClass = PlayerCast.WARRIOR;
+            System.out.println("Warrior choisi");
         }
         this.gameInputs.setPlayerCast(playerClass);
+
+        System.out.println("Classe choisie : " + playerClass.toString());
 
     }
 
@@ -60,7 +65,15 @@ public class MenuStartPanel extends JPanel {
         setPlayerName(pseudoField.getText());
         setPlayerCast();
         setWeaponStore(this.weaponStore);
-        setPlayerWeapon(getSelectedItem());
+        // si l'arme n'est pas choisie, on prend la première de la liste
+        if (getSelectedItem() == null) {
+            setSelectedItem(this.weaponStore.getWeapons().get(0));
+            setPlayerWeapon(getSelectedItem());
+        }
+        else {
+            setPlayerWeapon(getSelectedItem());
+        }
+        System.out.println("Arme choisie : " + getSelectedItem());
     }
 
     private void setSelectedItem(Weapon weapon) {
@@ -95,7 +108,7 @@ public class MenuStartPanel extends JPanel {
         this.combo.addActionListener(e -> {
             JComboBox cb = (JComboBox) e.getSource();
             Weapon selectedWeapon = (Weapon) cb.getSelectedItem();
-            setSelectedItem(selectedWeapon);
+               setSelectedItem(selectedWeapon);
         });
 
         // define panel layout
@@ -130,6 +143,11 @@ public class MenuStartPanel extends JPanel {
 
         // player classes radio buttons
         // mage
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(this.radioMage);
+        buttonGroup.add(this.radioElf);
+        buttonGroup.add(this.radioWarrior);
+
         this.radioMage.setSelected(true);
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -159,25 +177,6 @@ public class MenuStartPanel extends JPanel {
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                         new Insets(50, 0, 30, 0), 0, 0));
 
-
-        this.pseudoField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    JTextField textField = (JTextField) e.getSource();
-                    setPlayerName(textField.getText());
-                    setPlayerCast();
-
-                    // Récupère l'arme sélectionnée à partir de la JComboBox 'combo'
-                    setPlayerWeapon(getSelectedItem());
-
-                    // Affichage pour vérification
-                    System.out.println("Player name : " + gameInputs.getPlayerName());
-                    System.out.println("Player class : " + gameInputs.getPlayerCast());
-                    System.out.println("Player weapon : " + getSelectedItem());
-                }
-            }
-        });
         this.add(this.pseudoField,
                 new GridBagConstraints(1, 2, 3, 1, 0.0, 0.0,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,

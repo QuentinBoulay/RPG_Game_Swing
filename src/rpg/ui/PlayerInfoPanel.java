@@ -36,6 +36,7 @@ public class PlayerInfoPanel extends JPanel {
     }
 
     public void updatePlayerInfo() {
+        System.out.println(player.getWeapons());
         moneyLabel.setText("Argent: " + player.getMoney() + " pièces d'or");
         weaponsList.setListData(new Vector<>(player.getWeapons()));
     }

@@ -28,9 +28,6 @@ public class MainGUI {
         // display start menu where to define your character and set game inputs variables
         GameInputs gameInputs = new GameInputs();
         new DialogBoxStart(gameInputs);
-        System.out.println(gameInputs.getPlayerName());
-        System.out.println(gameInputs.getPlayerCast());
-        System.out.println(gameInputs.getPlayerWeapons());
 
         // create game
         Game game = new Game(gameInputs);
